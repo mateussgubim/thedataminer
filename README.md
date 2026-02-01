@@ -12,8 +12,8 @@ Este projeto tem como objetivo construir um pipeline de ingestão de dados "Clou
 ## 🎯 Objetivos do Desafio
 
 ### Fase 1: Fundação (Infraestrutura)
-- [ ] Configurar o arquivo `provider.tf` para autenticação na AWS.
-- [ ] Criar um recurso de **Bucket S3** via Terraform.
+- [x] Configurar o arquivo `provider.tf` para autenticação na AWS.
+- [x] Criar um recurso de **Bucket S3** via Terraform.
 - [ ] Definir a **IAM Role** e a **Policy** que permite à Lambda escrever logs e objetos no S3.
 - [ ] Implementar o recurso `archive_file` no Terraform para automatizar o empacotamento (.zip) do código Python.
 
