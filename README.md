@@ -15,10 +15,10 @@ Este projeto tem como objetivo construir um pipeline de ingestão de dados "Clou
 - [x] Configurar o arquivo `provider.tf` para autenticação na AWS.
 - [x] Criar um recurso de **Bucket S3** via Terraform.
 - [x] Definir a **IAM Role** e a **Policy** que permite à Lambda escrever logs e objetos no S3.
-- [ ] Implementar o recurso `archive_file` no Terraform para automatizar o empacotamento (.zip) do código Python.
+- [x] Implementar o recurso `archive_file` no Terraform para automatizar o empacotamento (.zip) do código Python.
 
 ### Fase 2: A Lógica (Desenvolvimento)
-- [ ] Criar o esqueleto da função `lambda_handler` em Python.
+- [x] Criar o esqueleto da função `lambda_handler` em Python.
 - [ ] Implementar um request HTTP para uma API pública (ex: Open-Meteo ou JSONPlaceholder).
 - [ ] Integrar a biblioteca **Boto3** para salvar o JSON de resposta no Bucket S3 criado.
 - [ ] Passar o nome do Bucket para a Lambda através de **Variáveis de Ambiente** configuradas no Terraform.
