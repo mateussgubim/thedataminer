@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam_for_lambda" {
-  name               = "${local.name}-role"
+  name = "${local.name}-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -18,8 +18,8 @@ resource "aws_iam_policy" "lambda_permissions" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = [
+        Effect = "Allow"
+        Action = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
@@ -27,10 +27,10 @@ resource "aws_iam_policy" "lambda_permissions" {
         Resource = "arn:aws:logs:*:*:*" # Permite criar logs em qualquer grupo
       },
       {
-        Effect   = "Allow"
-        Action   = ["s3:PutObject"]
+        Effect = "Allow"
+        Action = ["s3:PutObject"]
         # Boa prática: Apontar especificamente para o seu bucket
-        Resource = "${aws_s3_bucket.seu_bucket.arn}/*" 
+        Resource = "${aws_s3_bucket.bucket.arn}/*"
       }
     ]
   })
