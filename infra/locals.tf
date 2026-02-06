@@ -1,6 +1,6 @@
 locals {
   tags = {
-    env = "DEV"
+    env  = "DEV"
     repo = "thedataminer/infra"
   }
 
