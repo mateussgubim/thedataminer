@@ -1,0 +1,19 @@
+name: Deployment
+on:
+  push:
+    branches: [main]
+
+jobs:
+  call-python-tests:
+    uses: ./python-tests.yaml
+
+  call-tf-plan:
+    needs: call-python-tests
+    uses: ./terraform-plan.yaml
+    secrets:
+      BUCKET_NAME: ${{ secrets.STATE_BUCKET_NAME }}
+
+  call-tf-apply:
+    needs: call-tf-plan
+    if: github.ref == 'ref/heads/main'
+    uses: ./terraform-apply.yaml
