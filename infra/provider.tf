@@ -9,6 +9,11 @@ terraform {
       version = "~> 2.7"
     }
   }
+
+  backend "s3" {
+    key = "infra/dataminer.tfsate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
