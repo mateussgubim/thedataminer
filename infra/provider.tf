@@ -11,7 +11,7 @@ terraform {
   }
 
   backend "s3" {
-    key = "infra/dataminer.tfstate"
+    key    = "infra/dataminer.tfstate"
     region = "us-east-1"
   }
 }
