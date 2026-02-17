@@ -7,5 +7,5 @@ variable "default_region" {
 variable "bucket_name" {
   description = "Specifies the bucket name"
   type        = string
-  default     = "dataminerBucket"
+  default     = "thedataminerbucket"
 }
