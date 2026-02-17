@@ -2,6 +2,9 @@ name: Deployment
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'bootstrap/**'
+      - 'README.md'
 
 jobs:
   call-python-tests:
