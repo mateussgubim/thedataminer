@@ -9,11 +9,9 @@ on:
     branches: [main]
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  plan:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    environment: production
-    
     defaults:
       run:
         shell: bash
@@ -44,6 +42,26 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -input=false -out=tfplan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false tfplan
+      - name: Upload Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: infra/tfplan
+
+  apply:
+    name: 'Terraform Apply'
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: ./infra
+    steps:
+      - name: Download Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: ./infra
+
+      - run: terraform init -backend-config="bucket=${{ secrets.STATE_BUCKET_NAME }}"
+      - run: terraform apply -auto-approve tfplan
