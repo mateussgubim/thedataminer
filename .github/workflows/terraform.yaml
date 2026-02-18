@@ -12,6 +12,8 @@ jobs:
   plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
+    environment: production
+
     defaults:
       run:
         shell: bash
@@ -53,6 +55,7 @@ jobs:
     needs: plan
     runs-on: ubuntu-latest
     environment: production
+
     defaults:
       run:
         working-directory: ./infra
