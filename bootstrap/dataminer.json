@@ -1,0 +1,340 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.5",
+  "serial": 2,
+  "lineage": "c9fb7dbd-bc84-0de5-8587-9ab977254e04",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "code_package",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "342cab56be104273ed9e4c2a5915be4342ba70dc",
+            "output_base64sha256": "LZXvjGGwh1PRtVaqUklGr0t3/ZFwseggiCREAGFeEas=",
+            "output_base64sha512": "d+5OhKaUB1HTfjpkVoHAxxBAB5R88DpgNQrPRHmGxfIahH9KC9XkWNL/HeZNVT8ZjHT+7AdGOlmffmmyjG9m8A==",
+            "output_file_mode": null,
+            "output_md5": "6fd35cdd535d4e29745da0ac94f43de8",
+            "output_path": "../src/lambda_function.zip",
+            "output_sha": "342cab56be104273ed9e4c2a5915be4342ba70dc",
+            "output_sha256": "2d95ef8c61b08753d1b556aa524946af4b77fd9170b1e82088244400615e11ab",
+            "output_sha512": "77ee4e84a6940751d37e3a645681c0c7104007947cf03a60350acf447986c5f21a847f4a0bd5e458d2ff1de64d553f198c74feec07463a599f7e69b28c6f66f0",
+            "output_size": 396,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": null,
+            "source_file": "../src/lambda_function.py",
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "lambda_permissions",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::791692149515:policy/dataminer_policy",
+            "attachment_count": 0,
+            "delay_after_policy_creation_in_ms": null,
+            "description": "",
+            "id": "arn:aws:iam::791692149515:policy/dataminer_policy",
+            "name": "dataminer_policy",
+            "name_prefix": "",
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:logs:*:*:*\"},{\"Action\":[\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::thedataminerbucket/*\"}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPA3QVEHQMF5C2ISH5OB",
+            "tags": null,
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:iam::791692149515:policy/dataminer_policy"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "iam_for_lambda",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::791692149515:role/dataminer-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-02-17T21:55:44Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "dataminer-role",
+            "inline_policy": [],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "dataminer-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "tags_all": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "unique_id": "AROA3QVEHQMF742PKAUJI"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "791692149515",
+            "name": "dataminer-role"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "attach_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "dataminer-role/arn:aws:iam::791692149515:policy/dataminer_policy",
+            "policy_arn": "arn:aws:iam::791692149515:policy/dataminer_policy",
+            "role": "dataminer-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "791692149515",
+            "policy_arn": "arn:aws:iam::791692149515:policy/dataminer_policy",
+            "role": "dataminer-role"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_policy.lambda_permissions",
+            "aws_iam_role.iam_for_lambda",
+            "aws_s3_bucket.bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "lambda_function",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:791692149515:function:dataminer-function",
+            "capacity_provider_config": [],
+            "code_sha256": "LZXvjGGwh1PRtVaqUklGr0t3/ZFwseggiCREAGFeEas=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "durable_config": [],
+            "environment": [
+              {
+                "variables": {
+                  "env": "dev",
+                  "log_level": "info"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "../src/lambda_function.zip",
+            "function_name": "dataminer-function",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dataminer-function",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:791692149515:function:dataminer-function/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-02-17T21:55:53.012+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dataminer-function",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 128,
+            "package_type": "Zip",
+            "publish": false,
+            "publish_to": null,
+            "qualified_arn": "arn:aws:lambda:us-east-1:791692149515:function:dataminer-function:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:791692149515:function:dataminer-function:$LATEST/invocations",
+            "region": "us-east-1",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "response_streaming_invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2021-11-15/functions/arn:aws:lambda:us-east-1:791692149515:function:dataminer-function/response-streaming-invocations",
+            "role": "arn:aws:iam::791692149515:role/dataminer-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "../src/lambda_function.zip",
+            "source_code_size": 396,
+            "source_kms_key_arn": "",
+            "tags": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "tags_all": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "tenancy_config": [],
+            "timeout": 3,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "791692149515",
+            "function_name": "dataminer-function",
+            "region": "us-east-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.iam_for_lambda",
+            "data.archive_file.code_package"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "bucket",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::thedataminerbucket",
+            "bucket": "thedataminerbucket",
+            "bucket_domain_name": "thedataminerbucket.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_region": "us-east-1",
+            "bucket_regional_domain_name": "thedataminerbucket.s3.us-east-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "aa1290ac54bc29a5b372a0a6e04f2e0cc9a3e56e2baf93ead3022c46a35ea166",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3AQBSTGFYJSTF",
+            "id": "thedataminerbucket",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "us-east-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "tags_all": {
+              "env": "DEV",
+              "repo": "thedataminer/infra"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "791692149515",
+            "bucket": "thedataminerbucket",
+            "region": "us-east-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
